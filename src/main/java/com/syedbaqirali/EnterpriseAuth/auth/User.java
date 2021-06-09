@@ -3,46 +3,37 @@
  */
 package com.syedbaqirali.EnterpriseAuth.auth;
 
-import java.util.Objects;
-
-/**
- * @author rever
- *
- */
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "users")
+@Table(name = "User")
 public class User {
-	private @Id @GeneratedValue long id;
-	private @NotBlank String username;
-	private @NotBlank String password;
-	private @NotNull boolean loggedIn;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private String userName;
+	private String password;
+	private boolean active;
+	private String roles;
 
-	public User() {
-	}
-
-	public User(@NotBlank String username, @NotBlank String password) {
-		this.username = username;
-		this.password = password;
-		this.loggedIn = false;
-	}
-
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public String getUsername() {
-		return username;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -53,32 +44,19 @@ public class User {
 		this.password = password;
 	}
 
-	public boolean isLoggedIn() {
-		return loggedIn;
+	public boolean isActive() {
+		return active;
 	}
 
-	public void setLoggedIn(boolean loggedIn) {
-		this.loggedIn = loggedIn;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (!(o instanceof User))
-			return false;
-		User user = (User) o;
-		return Objects.equals(username, user.username) && Objects.equals(password, user.password);
+	public String getRoles() {
+		return roles;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, username, password, loggedIn);
-	}
-
-	@Override
-	public String toString() {
-		return "User{" + "id=" + id + ", username='" + username + '\'' + ", password='" + password + '\''
-				+ ", loggedIn=" + loggedIn + '}';
+	public void setRoles(String roles) {
+		this.roles = roles;
 	}
 }

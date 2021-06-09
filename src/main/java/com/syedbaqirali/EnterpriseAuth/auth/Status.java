@@ -4,7 +4,7 @@
 package com.syedbaqirali.EnterpriseAuth.auth;
 
 /**
- * @author rever
+ * @author SBA
  *
  */
 public enum Status {

@@ -8,13 +8,15 @@ import java.util.List;
 import javax.validation.Valid;
 
 /**
- * @author rever
+ * @author SBA
  *
  */
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.syedbaqirali.EnterpriseAuth.auth.Status;
@@ -25,6 +27,12 @@ import com.syedbaqirali.EnterpriseAuth.auth.UserRepository;
 public class UserController {
 	@Autowired
 	UserRepository userRepository;
+
+	@GetMapping("/user")
+	public String admin() {
+		return ("<h1>Welcome User</h1>");
+
+	}
 
 	@PostMapping("/users/register")
 	public Status registerUser(@Valid @RequestBody User newUser) {
@@ -46,7 +54,7 @@ public class UserController {
 		List<User> users = userRepository.findAll();
 		for (User other : users) {
 			if (other.equals(user)) {
-				user.setLoggedIn(true);
+
 				userRepository.save(user);
 				return Status.SUCCESS;
 			}
@@ -59,7 +67,7 @@ public class UserController {
 		List<User> users = userRepository.findAll();
 		for (User other : users) {
 			if (other.equals(user)) {
-				user.setLoggedIn(false);
+
 				userRepository.save(user);
 				return Status.SUCCESS;
 			}
@@ -72,4 +80,11 @@ public class UserController {
 		userRepository.deleteAll();
 		return Status.SUCCESS;
 	}
+
+	@GetMapping("/users/all")
+	public @ResponseBody Iterable<User> getAllUsers() {
+		return userRepository.findAll();
+
+	}
+
 }
